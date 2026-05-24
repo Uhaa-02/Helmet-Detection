@@ -1,0 +1,74 @@
+# ─────────────────────────────────────────────
+#  Helmet Detection System — Central Config
+# ─────────────────────────────────────────────
+
+model:
+  input_size: [224, 224]          # MobileNetV2 native input
+  num_classes: 2                  # helmet, no_helmet
+  base_model: "MobileNetV2"
+  pretrained_weights: "imagenet"
+  fine_tune_layers: 30            # unfreeze last N layers of base model
+
+training:
+  epochs: 30
+  batch_size: 32
+  learning_rate: 0.0001
+  fine_tune_learning_rate: 0.00001
+  validation_split: 0.2
+  early_stopping_patience: 7
+  reduce_lr_patience: 3
+  reduce_lr_factor: 0.5
+
+data:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  augmented_dir: "data/augmented"
+  classes:
+    - "helmet"
+    - "no_helmet"
+
+augmentation:
+  rotation_range: 20
+  width_shift: 0.15
+  height_shift: 0.15
+  shear_range: 0.1
+  zoom_range: 0.2
+  horizontal_flip: true
+  brightness_range: [0.7, 1.3]
+  augment_multiplier: 3           # generate 3x images per original
+
+detection:
+  confidence_threshold: 0.70     # primary detection threshold
+  violation_threshold: 0.82      # threshold to trigger alert (higher = fewer false positives)
+  consecutive_frames: 3          # require N consecutive violation frames before alerting
+  alert_cooldown_sec: 5          # seconds between repeated alerts for same violation
+
+preprocessing:
+  blur_kernel: 3                  # Gaussian blur kernel size (must be odd)
+  use_edge_detection: false       # optional Canny edge preprocessing
+  clahe_clip_limit: 2.0           # contrast enhancement (0 = disabled)
+  normalize: true
+
+camera:
+  device_id: 0                    # webcam device index
+  width: 640
+  height: 480
+  fps: 30
+
+raspberry_pi:
+  gpio_alert_pin: 17              # BCM pin for buzzer/LED
+  gpio_led_pin: 27                # optional status LED
+  alert_duration_ms: 200          # buzzer pulse duration
+  use_tflite: true                # use optimized TFLite model on Pi
+  tflite_model_path: "models/helmet_detector.tflite"
+
+logging:
+  log_dir: "logs"
+  save_violations: true           # save violation frame images
+  violation_img_dir: "logs/violations"
+  log_level: "INFO"               # DEBUG, INFO, WARNING, ERROR
+
+paths:
+  model_save_path: "models/helmet_detector.h5"
+  tflite_save_path: "models/helmet_detector.tflite"
+  training_history_path: "logs/training_history.json"
