@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🪖 Helmet Detection System
 
 A real-time computer vision pipeline to detect helmet violations using MobileNetV2 + OpenCV, deployable on Raspberry Pi with IoT alert integration.
@@ -81,3 +82,6 @@ python src/detect_pi.py                 # Run on Pi with GPIO alerts
 ## Config
 
 Edit `config/config.yaml` to tune thresholds, image size, alert pins, etc.
+=======
+# Helmet-Detection
+>>>>>>> fcf178f53286f676d90d7826894b3679224a8c9e
