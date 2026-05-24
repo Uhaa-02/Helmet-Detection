@@ -1,87 +1,44 @@
-<<<<<<< HEAD
 # 🪖 Helmet Detection System
 
-A real-time computer vision pipeline to detect helmet violations using MobileNetV2 + OpenCV, deployable on Raspberry Pi with IoT alert integration.
+A real-time computer vision project for detecting helmet violations using MobileNetV2, TensorFlow, and OpenCV. The system supports webcam-based detection and can be deployed on Raspberry Pi with IoT alert integration.
 
-## Architecture
+---
 
-```
-Camera Feed → Preprocessing → MobileNetV2 Classifier → Threshold Filter → Alert Engine
-                                                              ↓
-                                                    Logs + GPIO/Buzzer (Pi)
-```
+## 🚀 Features
 
-## Project Structure
+- Real-time helmet detection
+- MobileNetV2 transfer learning
+- OpenCV webcam integration
+- Raspberry Pi deployment support
+- TensorFlow Lite conversion
+- Configurable thresholds and preprocessing
+- Modular project structure
 
-```
-helmet_detection/
-├── data/
-│   ├── raw/              # Original images (helmet/ and no_helmet/ folders)
-│   ├── processed/        # Resized & normalized images
-│   └── augmented/        # Augmented training data
-├── models/               # Saved .h5 / .tflite models
-├── src/
-│   ├── train.py          # Model training (MobileNetV2 transfer learning)
-│   ├── detect.py         # Real-time webcam detection (PC)
-│   ├── detect_pi.py      # Raspberry Pi detection + GPIO alerts
-│   ├── preprocess.py     # Dataset preparation & augmentation
-│   └── evaluate.py       # Model evaluation & confusion matrix
-├── scripts/
-│   ├── download_dataset.py   # Helper to organize dataset
-│   └── convert_tflite.py     # Convert model to TFLite for Pi
-├── config/
-│   └── config.yaml       # All tunable parameters
-├── tests/
-│   └── test_pipeline.py  # Unit tests
-└── requirements.txt
-```
+---
 
-## Quick Start
+## 🛠️ Tech Stack
 
-### 1. Install Dependencies
+- Python
+- TensorFlow / Keras
+- OpenCV
+- MobileNetV2
+- NumPy
+- Raspberry Pi (optional)
+
+---
+
+## 📂 Project Structure
+
 ```bash
-pip install -r requirements.txt
-```
-
-### 2. Prepare Dataset
-```
-data/raw/
-  helmet/       ← ~250+ images of people with helmets
-  no_helmet/    ← ~250+ images of people without helmets
-```
-
-### 3. Preprocess & Augment
-```bash
-python src/preprocess.py
-```
-
-### 4. Train Model
-```bash
-python src/train.py
-```
-
-### 5. Real-time Detection (PC/Webcam)
-```bash
-python src/detect.py
-```
-
-### 6. Deploy on Raspberry Pi
-```bash
-python scripts/convert_tflite.py        # Convert model first
-python src/detect_pi.py                 # Run on Pi with GPIO alerts
-```
-
-## Performance Targets
-
-| Metric | Target | Achieved |
-|--------|--------|----------|
-| Accuracy | ≥ 90% | ~92% |
-| False Positive Reduction | 30% | Via threshold tuning |
-| Alert Latency (Pi) | ≤ 200ms | GPIO trigger |
-
-## Config
-
-Edit `config/config.yaml` to tune thresholds, image size, alert pins, etc.
-=======
-# Helmet-Detection
->>>>>>> fcf178f53286f676d90d7826894b3679224a8c9e
+Helmet-Detection/
+├── convert_tflite.py
+├── detect.py
+├── detect_pi.py
+├── download_dataset.py
+├── evaluate.py
+├── preprocess.py
+├── test_pipeline.py
+├── train.py
+├── config.yaml
+├── requirements.txt
+└── README.md
